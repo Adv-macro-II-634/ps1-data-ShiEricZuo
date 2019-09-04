@@ -7,10 +7,15 @@
 % See net worth flowchart on
 % https://www.federalreserve.gov/econres/scfindex.htm for the calculation
 % of NETWORTH
-wealth = SCFP20072.NETWORTH/1.16
+inffac=1.16
+%For simplicty, divide these values by 1000, so the unit here is a thousand
+%dollars
+wealth = 0.001*SCFP20072.NETWORTH/inffac
 
 % Income
-income = SCFP20072.INCOME/1.16
+income = 0.001*SCFP20072.INCOME/inffac
 
 %earnings are wage income plus business and farm income
-earnings = (SCFP20072.WAGEINC + SCFP20072.BUSSEFARMINC)/1.16
+earnings = 0.001*(SCFP20072.WAGEINC + 0.863* SCFP20072.BUSSEFARMINC)/inffac
+
+weight=SCFP20072.WGT
