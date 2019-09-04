@@ -18,5 +18,5 @@ income=(scf$WAGEINC+scf$BUSSEFARMINC+scf$INTDIVINC+scf$KGINC+scf$SSRETINC+scf$TR
 
 #Weight
 #To replicate the quantile distributions table in DGR, weighted quantile is used. 
-weight=scf$WGT
+myweight=scf$WGT
 
