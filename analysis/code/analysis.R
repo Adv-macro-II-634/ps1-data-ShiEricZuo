@@ -35,7 +35,7 @@ giniincome=weighted.gini(income,myweight)[1]
 giniwlth=weighted.gini(wealth,myweight)[1]
 
 #top1%/lowest 40%
-
+a<-wtd.Ecdf(earnings,myweight)
 
 
 
@@ -57,3 +57,12 @@ locameanwlth=locator(wtd.mean(wealth,myweight),wealth,myweight)
 MMearn=wtd.mean(earnings,myweight)/wtd.quantile(earnings,0.5,weight = myweight)
 MMincome=wtd.mean(income,myweight)/wtd.quantile(income,0.5,weight = myweight)
 MMwlth=wtd.mean(wealth,myweight)/wtd.quantile(wealth,0.5,weight = myweight)
+
+#Lorenz Curve
+library(ineq)
+Lcearn<-Lc(earnings, myweight)
+plot(Lcearn,main="Earnings Lorenz Curve")
+Lcinc<-Lc(income, myweight)
+plot(Lcinc,main="Income Lorenz Curve")
+Lcwlth<-Lc(wealth,myweight)
+plot(Lcwlth,main="Wealth Lorenz Curve")
