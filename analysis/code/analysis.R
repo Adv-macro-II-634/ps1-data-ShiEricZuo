@@ -165,12 +165,10 @@ MMwlth=wtd.mean(wealth,myweight)/wtd.quantile(wealth,0.5,weight = myweight)
 
 ########Replicate "Table 2"
 concenvalue<-c(earnCV,incomeCV,wlthCV,earnvl,incvl,wlthvl,giniearn,giniincome,giniwlth,ratio_earning,ratio_income,ratio_wealth,locameanearn,locameaninc,locameanwlth,MMearn,MMincome,MMwlth)
-concentration<-matrix(concenvalue,nrow = 6,ncol = 3,byrow = TRUE)
+concentration<-matrix(c(concenvalue),nrow = 6,ncol = 3,byrow = TRUE)
 colnames(concentration)<-c("Earnings","Income","Wealth")
 rownames(concentration)<-c("Coefficient of variation","Variance of logs","Gini Index","Top1%/lowest 40%","Location of mean%","Mean/Median")
-concentration<-as.table(concentration)
-format(concentration,scientific = FALSE)
-round(concentration,2)
+show(concentration)
 
 
 #Lorenz Curve
