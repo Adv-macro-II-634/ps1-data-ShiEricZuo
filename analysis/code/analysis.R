@@ -14,6 +14,14 @@ for (i in 1:12){
   wlthquan[i]=wtd.quantile(wealth,quan[i],weight = myweight)
 }
 
+#replicate "Table 1"
+quantile<-matrix(c(earnquan,incquan,wlthquan),ncol=12,nrow=3,byrow = TRUE)
+colnames(quantile)<-c("0","1","5","10","20","40","60","80","90","95","99","100")
+rownames(quantile)<-c("Earnings","Income","Wealth")
+quantile<-as.table(quantile)
+format(quantile,scientific = FALSE)
+round(quantile,2)
+
 #Concentration and skewness
 #Coefficient of variation
 install.packages("Weighted.Desc.Stat")
@@ -21,11 +29,11 @@ library(Weighted.Desc.Stat)
 
 incomeCV=w.cv(income, myweight)
 earnCV=w.cv(earnings, myweight)
-wlthquan=w.cv(wealth,myweight)
+wlthCV=w.cv(wealth,myweight)
 
 #Variance of logs
 logincome=log(income)
-vlgincome=(logincome,na.rm = TRUE)
+vlgincome=(logincome, na.rm = TRUE)
 
 #Gini Index
 install.packages("acid")
@@ -35,9 +43,30 @@ giniincome=weighted.gini(income,myweight)[1]
 giniwlth=weighted.gini(wealth,myweight)[1]
 
 #top1%/lowest 40%
-a<-wtd.Ecdf(earnings,myweight)
-
-
+em<-matrix(c(earnings,myweight),nrow=22085,ncol = 2,byrow = FALSE)
+require(data.table)
+em.dt <- data.table(em, key="V1")
+totwgt=sum(myweight)
+i=22085
+tempwgt=0
+repeat{
+  tempwgt=tempwgt+em.dt[i,2]
+  i=i-1
+  if (tempwgt>=0.1*totwgt ) break
+}
+topweighte<-c(em.dt[2,c(i:22805)])
+topearn<-c(em.dt[1,c(i:22805)])
+tottop1<-sum(topwealth*topwealth)
+j=1
+tempwgt=0
+repeat{
+  tempwgt=tempwgt+em.dt[j,2]
+  j=j+1
+  if (tempwgt=0.4*totwgt ) break
+}
+lowweighte<-c(em.dt[2,c(1:j)])
+lowearn<-c(em.dt[1,c(1:j)])
+totlow4<-sum(lowwealth*lowwealth)
 
 
 #location of mean
